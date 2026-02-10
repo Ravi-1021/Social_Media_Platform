@@ -76,7 +76,7 @@ export const updateUserData = async (req, res) => {
             const buffer = fs.readFileSync(cover.path)
             const response = await imagekit.upload({
                 file : buffer,
-                fileName : profile.originalname,
+                fileName : cover.originalname,
             })
             const url = imagekit.url({
                 path: response.filePath,
@@ -245,11 +245,12 @@ export const getUserConnections = async (req, res) => {
   }
 };
 
+
 //Accept Connection Request
 export const acceptConnectionRequest = async (req, res) => {
   try {
     const { userId } = req.auth();
-    const {id} = req.body();
+    const {id} = req.body;
 
     const connection = await Connection.findOne({from_user_id: id, to_user_id: userId})
 
